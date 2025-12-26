@@ -14,8 +14,21 @@ type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
 const { Content } = await render(post);
+
+// Extract date and title from the filename (post.id) if not present in data
+const filename = post.id.split('/').pop() || '';
+const dateMatch = filename.match(/^(\d{4}-\d{2}-\d{2})/);
+const pubDate = post.data.pubDate || (dateMatch ? new Date(dateMatch[1]) : new Date());
+const title = post.data.title || filename.replace(/^\d{4}-\d{2}-\d{2}\s*/, '').replace(/\.md$/, '') || filename;
 ---
 
-<BlogPost {...post.data}>
+<BlogPost 
+	title={title} 
+	description={post.data.description || ''} 
+	pubDate={pubDate} 
+	updatedDate={post.data.updatedDate} 
+	heroImage={post.data.heroImage}
+>
 	<Content />
 </BlogPost>
+
