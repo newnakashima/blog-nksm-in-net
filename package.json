@@ -13,6 +13,9 @@
 	},
 	"private": true,
 	"scripts": {
+		"copy-images": "cp -r ./src/content/diary/images/* ./public/images",
+		"predev": "npm run copy-images",
+		"prebuild": "npm run copy-images",
 		"astro": "astro",
 		"build": "astro build",
 		"check": "astro build && tsc",

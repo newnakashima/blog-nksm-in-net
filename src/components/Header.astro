@@ -7,7 +7,7 @@ import { SITE_TITLE } from '../consts';
 	<nav>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
 		<div class="internal-links">
-			<HeaderLink href="/blog">Blog</HeaderLink>
+			<HeaderLink href="/">Blog</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
 		</div>
 
@@ -70,9 +70,19 @@ import { SITE_TITLE } from '../consts';
 		border-bottom: 4px solid transparent;
 		text-decoration: none;
 	}
+	nav > * {
+		flex: 1;
+	}
 	nav a.active {
 		text-decoration: none;
 		border-bottom-color: var(--accent);
+	}
+	nav div:first-of-type {
+		display: flex;
+		justify-content: center;
+	}
+	nav div:last-of-type {
+		justify-content: flex-end;
 	}
 	.social-links,
 	.social-links a {

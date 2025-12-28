@@ -108,7 +108,9 @@ const posts = (await getCollection('blog'))
 						posts.map((post) => (
 							<li>
 								<a href={`/blog/${post.id}/`}>
-									<img width={720} height={360} src={post.data.heroImage || '/blog-placeholder-about.jpg'} alt="" />
+									{post.data.eyecatch && (
+										<img style="width: 1024px; height: 633px; object-fit: cover; object-position: top;" src={post.data.eyecatch || '/blog-placeholder-about.jpg'} alt="アイキャッチ" />
+									)}
 									<h4 class="title">{post.displayTitle}</h4>
 									<p class="date">
 										<FormattedDate date={post.displayDate} />

@@ -7,7 +7,9 @@ import FormattedDate from '../components/FormattedDate.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, eyecatch, tags } = Astro.props;
+
+const eyecatchUrl = eyecatch && !eyecatch.startsWith('http') && !eyecatch.startsWith('/') ? `/${eyecatch}` : eyecatch;
 ---
 
 <html lang="en">
@@ -51,6 +53,37 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			.last-updated-on {
 				font-style: italic;
 			}
+			.back-link-top {
+				display: block;
+				margin-bottom: 2rem;
+				text-decoration: none;
+				color: rgb(var(--gray));
+				font-size: 0.9rem;
+			}
+			.back-link-top:hover {
+				color: var(--accent);
+			}
+			.back-to-blog {
+				text-align: center;
+				margin-top: 4rem;
+				margin-bottom: 2rem;
+			}
+			.back-to-blog a {
+				display: inline-block;
+				padding: 0.8rem 1.6rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 8px;
+				text-decoration: none;
+				color: rgb(var(--gray-dark));
+				transition: all 0.2s ease;
+				font-size: 0.9rem;
+				font-weight: 600;
+			}
+			.back-to-blog a:hover {
+				border-color: var(--accent);
+				color: var(--accent);
+				background-color: rgb(var(--gray-light));
+			}
 		</style>
 	</head>
 
@@ -59,9 +92,10 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		<main>
 			<article>
 				<div class="hero-image">
-					{heroImage && <img width={1020} height={510} src={heroImage} alt="" />}
+					{eyecatchUrl && <img src={eyecatchUrl} style="width: 1024px; height: 633px; object-fit: cover; object-position: top;" alt="アイキャッチ" />}
 				</div>
 				<div class="prose">
+					<a href="/" class="back-link-top">← 記事一覧に戻る</a>
 					<div class="title">
 						<div class="date">
 							<FormattedDate date={pubDate} />
@@ -77,6 +111,9 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 						<hr />
 					</div>
 					<slot />
+					<div class="back-to-blog">
+						<a href="/">記事一覧に戻る</a>
+					</div>
 				</div>
 			</article>
 		</main>
